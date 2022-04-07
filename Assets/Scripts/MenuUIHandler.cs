@@ -14,13 +14,15 @@ using UnityEditor;
 [DefaultExecutionOrder(1000)]
 public class MenuUIHandler : MonoBehaviour
 {
-   // public ColorPicker ColorPicker;
+    // public ColorPicker ColorPicker;
+    
     public GameObject inputPlayerName;
-    protected string m_Text; 
+    protected string m_Text;
+
+    public GameObject needEnterName;
 
 
-
-
+   
     public void NewInputPlayerName(string playerName)
     {
 
@@ -29,24 +31,27 @@ public class MenuUIHandler : MonoBehaviour
 
     private void Start()
     {
-        
+        needEnterName.SetActive(false);
 
-
-        //inputPlayerName.name = GetComponent<InputField>().text;
-      // ColorPicker.Init();
-      // this will call the NewColorSelected function when the color picker has a color button clicked
-      // ColorPicker.onColorChanged += NewColorSelected;
     }
-    private void Update()
-    {
-       
-        
-    }
+   
     public void StartNew()
     {
         string playerName = inputPlayerName.GetComponent<TMP_InputField>().text;
+        if (playerName == "")
+        {
+            needEnterName.SetActive(true); 
+        }
+        else
+        {
         Debug.Log(playerName);
         SceneManager.LoadScene(1);
+        }
+    }
+
+    public void SaveInputPlayerName()
+    {
+        MainManager.Instance.PlayerName();
     }
 
     public void Exite()
